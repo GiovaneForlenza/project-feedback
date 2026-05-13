@@ -1,7 +1,18 @@
 import React from "react";
+import HomePage from "./pages/HomePage";
+import DetailPage from "./pages/DetailPage";
+import RoadmapPage from "./pages/RoadmapPage";
 
 function App() {
-  return <div>App</div>;
+  return (
+    <div className="min-h-screen bg-gray-50 p-4 md:p-8">
+      <main>
+        {/* <HomePage/> */}
+        {/* <DetailPage /> */}
+        <RoadmapPage />
+      </main>
+    </div>
+  );
 }
 
 export default App;
