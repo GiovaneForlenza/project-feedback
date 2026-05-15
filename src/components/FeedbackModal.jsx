@@ -3,7 +3,8 @@ import React from "react";
 
 function FeedbackModal() {
   return (
-    <div className="fixed inset-0 backdrop-blur-xs bg-gray-900/90   flex items-center justify-center p-4 z-50">
+    // backdrop-blur-xs
+    <div className="fixed inset-0  bg-gray-900/90   flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-xl max-w-lg w-full p-6 max-h-[900vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-gray-800">

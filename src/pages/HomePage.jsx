@@ -1,9 +1,16 @@
-import React from "react";
-import Sidebar from "../components/Sidebar";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import FeedbackList from "../components/FeedbackList";
-import FeedbackModal from "../components/FeedbackModal";
+import Sidebar from "../components/Sidebar";
 
 function HomePage() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const suggestions = useSelector((state) => state.feedback.suggestions);
+  console.log(suggestions);
+
   return (
     <div className="max-w-6xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
@@ -35,7 +42,7 @@ function HomePage() {
           <FeedbackList />
         </div>
       </div>
-      <FeedbackModal />
+      {/* <FeedbackModal /> */}
     </div>
   );
 }
