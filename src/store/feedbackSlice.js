@@ -9,6 +9,7 @@ const initialState = {
 const feedbackSlice = createSlice({
   name: "feedback",
   initialState,
+  // Defines the reducers for handling various actions related to feedback suggestions, such as adding, updating, deleting suggestions, toggling upvotes, and adding comments. Each reducer updates the state accordingly based on the action payload.
   reducer: {
     addSuggestion: (state, action) => {
       const payLoad = action.payLoad;
@@ -26,6 +27,7 @@ const feedbackSlice = createSlice({
     },
 
     updateSuggestion: (state, action) => {
+      // Finds the index of the suggestion to be updated based on the ID provided in the action payload. If found, it updates the suggestion with the new data while preserving existing properties.
       const updated = action.payload;
       const idx = state.suggestions.findIndex((s) => s.id === updated.id);
 
@@ -35,12 +37,13 @@ const feedbackSlice = createSlice({
     },
 
     deleteSuggestion: (state, action) => {
+      // Finds the ID of the suggestion to be deleted from the action payload and filters it out from the suggestions array. Also deletes any comments associated with the deleted suggestion.
       const id = action.payload;
       state.suggestions = state.suggestions.filter((s) => s.id !== id);
       delete state.comments[id];
     },
-
-    toggleUpvote: (state, action) => {
+    toggleUpvoted: (state, action) => {
+      // Toggles the upvote status of a suggestion based on the ID provided in the action payload. It updates the upvote count accordingly, ensuring it does not go below zero.
       const id = action.payload;
       const item = state.suggestions.find((s) => s.id === id);
 
@@ -53,6 +56,7 @@ const feedbackSlice = createSlice({
     },
 
     addComment: (state, action) => {
+      // Adds a comment to a specific suggestion based on the suggestion ID and comment data provided in the action payload. It also increments the comment count for the associated suggestion.
       const { suggestionId, comment } = action.payload;
       if (!state.comments[suggestionId]) state.comments[suggestionId] = [];
       state.comments[suggestionId].push(comment);
@@ -62,6 +66,7 @@ const feedbackSlice = createSlice({
     },
 
     replaceAll: (state, action) => {
+      // Replaces the entire suggestions array in the state with a new array provided in the action payload. This can be useful for bulk updates or resetting the suggestions.
       return action.payload;
     },
   },

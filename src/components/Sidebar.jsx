@@ -1,53 +1,85 @@
 import React from "react";
 
-function Sidebar() {
+const categories = ["All", "UI", "UX", "Enhancement", "Bug", "Feature"];
+
+function Sidebar({
+  filterCategory,
+  setFilterCategory,
+  roadmapCounts,
+  openRoadmap,
+  openAdd,
+}) {
   return (
     <div className="lg:col-span-1 space-y-6">
       <div className="bg-gray-800 rounded-xl p-6 text-white">
         <h1 className="text-xl font-bold mb-1">Frontend Mentor</h1>
         <p className="text-sm opacity-50">Feedback Board</p>
       </div>
-      <div className="bg-white rounded-xl p-8 shadow-md">
+      <div className="bg-white rounded-xl p-8 shadow-md ">
         <div className="flex flex-wrap gap-2">
-          <button className="p-4 py-2 rounded-lg text-sm font-semibold transition-all">
-            Categories
-          </button>
+          {/* Displays the categories buttons based on the array, each one has an OnClick handler to set the category to be the selected one and change it's style accordingly */}
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all cursor-pointer ${
+                filterCategory === cat
+                  ? "bg-purple-600 text-white"
+                  : "bg-purple-100 text-purple-600 hover:bg-purple-200"
+              }`}
+              onClick={() => setFilterCategory(cat)}
+            >
+              {cat}
+            </button>
+          ))}
         </div>
       </div>
-
-      <div className="bg-white rounded-xl p-6 shadow-md">
+      <div className="bg-white rounded-xl p-6 shadow-md ">
         <div className="flex justify-between items-center mb-4">
           <h2 className="font-bold text-gray-800">Roadmap</h2>
-          <button className="text-blue-600 text-sm font-semibold hover:underline hover:cursor-pointer">
+          <button
+            className="text-purple-700 text-sm font-semibold hover:underline hover:cursor-pointer"
+            onClick={openRoadmap}
+          >
             View
           </button>
         </div>
-
         <div className="space-y-3">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-orange-400"></div>
               <span className="text-gray-600 text-xs">Planned</span>
             </div>
-            <span className="font-bold text-gray-600">Planned</span>
-          </div>
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-purple-400"></div>
-              <span className="text-gray-600 text-xs">In-Progress</span>
-            </div>
-            <span className="font-bold text-gray-600">In-Progress</span>
+            {/* Uses the items count from the roadmapCounts object to dynamically display the count */}
+            <span className="font-bold text-gray-600">
+              {roadmapCounts.planned}
+            </span>
           </div>
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-cyan-400"></div>
+              <span className="text-gray-600 text-xs">In-Progress</span>
+            </div>
+            {/* Uses the items count from the roadmapCounts object to dynamically display the count */}
+            <span className="font-bold text-gray-600">
+              {roadmapCounts.inProgress}
+            </span>
+          </div>
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-green-400"></div>
               <span className="text-gray-600 text-xs">Live</span>
             </div>
-            <span className="font-bold text-gray-600">Live</span>
+            {/* Uses the items count from the roadmapCounts object to dynamically display the count */}
+            <span className="font-bold text-gray-600">
+              {roadmapCounts.live}
+            </span>
           </div>
         </div>
         <div className="mt-4">
-          <button className="w-full bg-purple-600 hover:bg-purple-700 hover:cursor-pointer text-white px-4 py-2 rounded-lg font-semibold text-sm transition-all">
+          <button
+            className="w-full bg-purple-600 hover:bg-purple-700 hover:cursor-pointer text-white px-4 py-2 rounded-lg font-semibold text-sm transition-all"
+            onClick={openAdd}
+          >
             + Add Feedback
           </button>
         </div>

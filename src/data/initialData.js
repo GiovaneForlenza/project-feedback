@@ -7,9 +7,9 @@ export const initialFeedbacks = [
       "Implement a dark theme option that reduces eye strain during late-night coding sessions and improves overall user experience in low-light environments.",
     upvotes: 142,
     comments: 2,
-    category: "UI",
+    category: "UX",
     status: "In Progress",
-    upvoted: true
+    upvoted: true,
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ export const initialFeedbacks = [
     comments: 1,
     category: "UI",
     status: "Planned",
-    upvoted: true
+    upvoted: true,
   },
   {
     id: 3,
@@ -31,7 +31,7 @@ export const initialFeedbacks = [
     comments: 0,
     category: "Feature",
     status: "Planned",
-    upvoted: true
+    upvoted: true,
   },
   {
     id: 4,
@@ -40,9 +40,9 @@ export const initialFeedbacks = [
       "Submit and cancel buttons are misaligned across different form pages, creating a disjointed user experience that needs standardization.",
     upvotes: 34,
     comments: 1,
-    category: "Bug",
+    category: "UX",
     status: "Live",
-    upvoted: false
+    upvoted: false,
   },
   {
     id: 5,
@@ -53,29 +53,29 @@ export const initialFeedbacks = [
     comments: 2,
     category: "Enhancement",
     status: "In Progress",
-    upvoted: true
+    upvoted: true,
   },
   {
     id: 6,
-    title: "Improve form validation feedback messages",
+    title: " TUDO BEM CONTIGO? Improve form validation feedback messages",
     description:
       "Current error messages are too generic. Need more specific, actionable validation feedback that clearly explains what went wrong and how to fix it.",
     upvotes: 53,
     comments: 1,
     category: "UX",
     status: "Live",
-    upvoted: true
+    upvoted: true,
   },
   {
     id: 7,
-    title: "Add real-time collaboration features",
+    title: "OI FER Add real-time collaboration features",
     description:
       "Allow multiple users to work on the same project simultaneously with live cursor tracking, presence indicators, and instant updates.",
     upvotes: 201,
     comments: 2,
     category: "Feature",
     status: "Planned",
-    upvoted: false
+    upvoted: false,
   },
   {
     id: 8,
@@ -86,7 +86,7 @@ export const initialFeedbacks = [
     comments: 0,
     category: "Enhancement",
     status: "In Progress",
-    upvoted: true
+    upvoted: true,
   },
   {
     id: 9,
@@ -95,9 +95,9 @@ export const initialFeedbacks = [
       "The sidebar navigation occasionally vanishes when switching between projects, requiring a page refresh to restore functionality.",
     upvotes: 45,
     comments: 1,
-    category: "Bug",
+    category: "UI",
     status: "Live",
-    upvoted: false
+    upvoted: false,
   },
   {
     id: 10,
@@ -108,7 +108,7 @@ export const initialFeedbacks = [
     comments: 0,
     category: "UX",
     status: "Planned",
-    upvoted: true
+    upvoted: false,
   },
 ];
 

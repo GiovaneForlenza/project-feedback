@@ -1,14 +1,21 @@
 import React from "react";
 import { ArrowLeft, ChevronUp, MessageSquare } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 function DetailView() {
+  const navigate = useNavigate();
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       <div className="flex justify-between items-center">
-        <button className="flex items-center gap-2 text-gray-600 hover:text-gray-800 font-semibold">
+        <button
+          className="flex items-center gap-2 text-gray-600 hover:text-gray-800 font-semibold cursor-pointer"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
           <ArrowLeft />
           Go Back
         </button>
-        <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition-all cursor-pointer">
+        <button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-semibold transition-all cursor-pointer">
           Edit Feedback
         </button>
       </div>
@@ -26,7 +33,7 @@ function DetailView() {
               Feedback Title
             </h2>
             <p className="text-gray-600 mb-3">Feedback description</p>
-            <span className="inline-block bg-blue-50 text-blue-600 px-4 py-2 rounded-lg text-sm font-semibold">
+            <span className="inline-block bg-purple-50 text-purple-600 px-4 py-2 rounded-lg text-sm font-semibold">
               Feedback category
             </span>
           </div>
@@ -51,7 +58,7 @@ function DetailView() {
                   </h4>
                   <p className="text-gray-500">Comment User Name</p>
                 </div>
-                <button className="text-blue-600 font-semibold text-sm hover:underline cursor-pointer">
+                <button className="text-purple-600 font-semibold text-sm hover:underline cursor-pointer">
                   Reply
                 </button>
               </div>
@@ -69,13 +76,13 @@ function DetailView() {
         <textarea
           name=""
           id=""
-          className="w-full border border-gray-200 rounded-lg p-4 text-gray-700 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full border border-gray-200 rounded-lg p-4 text-gray-700 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500"
           rows={4}
           maxLength={250}
         ></textarea>
         <div className="flex justify-between items-center mt-4">
           <span className="text-gray-500 text-sm">Characters left</span>
-          <button className="bg-purple-600 hover:bg-purple-800 disabled:bg-gray-400 disabled:cursor-not-allowed text-white px-6 py-2 rounded-lg font-semibold transition-all">
+          <button className="bg-purple-600 hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white px-6 py-2 rounded-lg font-semibold transition-all">
             Post Comment
           </button>
         </div>
