@@ -8,8 +8,8 @@ function FeedbackItem({ suggestion, onUpvote, onView }) {
         <button
           className={`flex flex-col items-center gap-1 rounded-lg px-3 py-2 transition-all cursor-pointer ${suggestion.upvoted ? "bg-purple-100 text-purple-700" : "bg-gray-50 text-gray-600 hover:bg-purple-50"}`}
           onClick={(e) => {
-            e.stopPropagation();
             onUpvote && onUpvote(suggestion.id);
+            e.stopPropagation();
           }}
         >
           <ChevronUp size={16} />

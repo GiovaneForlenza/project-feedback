@@ -6,7 +6,7 @@ function FeedbackList({
   filterCategory,
   sortBy,
   onView,
-  onUpvoted,
+  onUpvote,
   setSuggestionCount,
 }) {
   // Filters the suggestions based on the selected category. If the category is "All", it includes all suggestions; otherwise, it filters to include only those that match the selected category.
@@ -58,7 +58,7 @@ function FeedbackList({
           key={suggestion.id}
           suggestion={suggestion}
           onView={onView}
-          onUpvoted={onUpvoted}
+          onUpvote={onUpvote}
         />
       ))}
     </div>

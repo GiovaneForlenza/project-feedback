@@ -43,6 +43,7 @@ const feedbackSlice = createSlice({
       delete state.comments[id];
     },
     toggleUpvoted: (state, action) => {
+      alert("Upvoted " + action.payload);
       // Toggles the upvote status of a suggestion based on the ID provided in the action payload. It updates the upvote count accordingly, ensuring it does not go below zero.
       const id = action.payload;
       const item = state.suggestions.find((s) => s.id === id);
@@ -76,7 +77,7 @@ export const {
   addSuggestion,
   updateSuggestion,
   deleteSuggestion,
-  toggleUpvote,
+  toggleUpvoted,
   addComment,
   replaceAll,
 } = feedbackSlice.actions;

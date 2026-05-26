@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import FeedbackList from "../components/FeedbackList";
 import Sidebar from "../components/Sidebar";
-import { addSuggestion } from "../store/feedbackSlice";
+import { addSuggestion, toggleUpvoted } from "../store/feedbackSlice";
 import FeedbackModal from "../components/FeedbackModal";
 
 function HomePage() {
@@ -44,7 +44,7 @@ function HomePage() {
   };
 
   const handleUpvoted = (id) => {
-    dispatch(handleUpvote(id));
+    dispatch(toggleUpvoted(id));
   };
 
   const handleView = (item) => {

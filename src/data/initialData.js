@@ -57,7 +57,7 @@ export const initialFeedbacks = [
   },
   {
     id: 6,
-    title: " TUDO BEM CONTIGO? Improve form validation feedback messages",
+    title: "Improve form validation feedback messages",
     description:
       "Current error messages are too generic. Need more specific, actionable validation feedback that clearly explains what went wrong and how to fix it.",
     upvotes: 53,
@@ -68,7 +68,7 @@ export const initialFeedbacks = [
   },
   {
     id: 7,
-    title: "OI FER Add real-time collaboration features",
+    title: "Add real-time collaboration features",
     description:
       "Allow multiple users to work on the same project simultaneously with live cursor tracking, presence indicators, and instant updates.",
     upvotes: 201,
