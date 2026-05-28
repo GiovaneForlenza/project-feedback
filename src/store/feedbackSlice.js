@@ -23,7 +23,8 @@ const feedbackSlice = createSlice({
         comments: 0,
         upvoted: false,
       };
-      state.suggestions.push(newSuggestions);
+      alert(payload)
+      // state.suggestions.push(newSuggestions);
     },
 
     updateSuggestion: (state, action) => {

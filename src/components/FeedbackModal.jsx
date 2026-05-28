@@ -1,7 +1,47 @@
 import { X } from "lucide-react";
-import React from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function FeedbackModal() {
+function FeedbackModal({ isOpen, onClose, onAdd, editingFeedback }) {
+  const [formData, setFormData] = useState({
+    title: "",
+    category: "Feature",
+    status: "Planned",
+    description: "",
+  });
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (editingFeedback) {
+      setFormData({
+        title: editingFeedback.title || "",
+        category: editingFeedback.category || "Feature",
+        status: editingFeedback.status || "Planned",
+        description: editingFeedback.description || "",
+      });
+    } else {
+      setFormData({
+        title: "",
+        category: "Feature",
+        status: "Planned",
+        description: "",
+      });
+    }
+  }, [editingFeedback, isOpen]);
+
+  if (!isOpen) return null;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+    onAdd(formData);
+  };
+
+  const handleDelete = () => {
+    if (!editingFeedback) return;
+    // if (window.confirm("Are you sure you want to delete this feedback?")) {
+    // }
+  };
   return (
     // backdrop-blur-xs
     <div className="fixed inset-0  bg-gray-900/90   flex items-center justify-center p-4 z-50">
@@ -10,11 +50,14 @@ function FeedbackModal() {
           <h2 className="text-2xl font-bold text-gray-800">
             Create New Feedback
           </h2>
-          <button className="text-gray-400 hover:text-gray-600">
+          <button
+            className="text-gray-400 hover:text-gray-600"
+            onClick={onClose}
+          >
             <X size={24} className="cursor-pointer" />
           </button>
         </div>
-        <form action="">
+        <form action="" onSubmit={handleSubmit} className="space-y-6">
           <div className="mb-4">
             <label
               htmlFor=""
@@ -26,6 +69,10 @@ function FeedbackModal() {
               type="text"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Add a short, descriptive headline"
+              value={formData.title}
+              onChange={(e) => {
+                setFormData({ ...formData, title: e.target.value });
+              }}
             />
           </div>
 
@@ -40,6 +87,10 @@ function FeedbackModal() {
               name=""
               id=""
               className="w-full px-4 py-3 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={formData.category}
+              onChange={(e) => {
+                setFormData({ ...formData, category: e.target.value });
+              }}
             >
               <option value="Feature">Feature</option>
               <option value="UI">UI</option>
@@ -60,6 +111,10 @@ function FeedbackModal() {
               name=""
               id=""
               className="w-full px-4 py-3 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={formData.status}
+              onChange={(e) => {
+                setFormData({ ...formData, status: e.target.value });
+              }}
             >
               <option value="Planned">Planned</option>
               <option value="In Progress">In Progress</option>
@@ -79,19 +134,28 @@ function FeedbackModal() {
               id=""
               rows={4}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus: ring-2 focus:ring-blue-500"
+              value={formData.description}
+              onChange={(e) => {
+                setFormData({ ...formData, description: e.target.value });
+              }}
             ></textarea>
           </div>
 
           <div className="flex gap-4">
-            <button className="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-semibold transition-all cursor-pointer">
-              Delete
-            </button>
-            <button className="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-3 rounded-lg font-semibold transition-all cursor-pointer">
+            {editingFeedback && (
+              <button className="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-semibold transition-all cursor-pointer">
+                Delete
+              </button>
+            )}
+            <button
+              className="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-3 rounded-lg font-semibold transition-all cursor-pointer"
+              onClick={onClose}
+            >
               Cancel
             </button>
 
             <button className="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold transition-all cursor-pointer">
-              Add Feedback
+              {editingFeedback ? "Save Feedback" : "Add Feedback"}
             </button>
           </div>
         </form>

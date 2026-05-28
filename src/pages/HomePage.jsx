@@ -2,9 +2,9 @@ import { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import FeedbackList from "../components/FeedbackList";
+import FeedbackModal from "../components/FeedbackModal";
 import Sidebar from "../components/Sidebar";
 import { addSuggestion, toggleUpvoted } from "../store/feedbackSlice";
-import FeedbackModal from "../components/FeedbackModal";
 
 function HomePage() {
   // Uses Redux hooks to access the dispatch function and select state from the store. Also uses React Router hooks to navigate and access the current location.
@@ -36,17 +36,17 @@ function HomePage() {
   );
 
   const openAdd = () => navigate("/add");
-  const closeMode = () => navigate(-1); //Goes back to previous route
+  const closeModel = () => navigate(-1); //Goes back to previous route
 
   const handleAdd = (payload) => {
-    dispatch(addSuggestion(payload));
     closeModel();
+    dispatch(addSuggestion(payload));
   };
 
   const handleUpvoted = (id) => {
+    console.log("a");
     dispatch(toggleUpvoted(id));
   };
-
   const handleView = (item) => {
     navigate(`/feedback/${item.id}`);
   };
@@ -104,7 +104,13 @@ function HomePage() {
           />
         </div>
       </div>
-      {/* <FeedbackModal /> */}
+      <FeedbackModal
+        isOpen={modelOpen}
+        onClose={closeModel}
+        onAdd={handleAdd}
+        editingFeedback={null}
+        // onDelete={onDelete}
+      />
     </div>
   );
 }
