@@ -1,7 +1,13 @@
+import { useMemo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import DetailView from "../components/DetailView";
-import { useMemo } from "react";
+import {
+  addComment,
+  deleteSuggestion,
+  toggleUpvoted,
+  updateSuggestion,
+} from "../store/feedbackSlice";
 
 function DetailPage() {
   const { id } = useParams();
@@ -11,25 +17,49 @@ function DetailPage() {
   const dispatch = useDispatch();
 
   const suggestions = useSelector((s) => s.feedback.suggestions);
-  const comments = useSelector((s) => s.feedback.comments);
-
+  const allComments = useSelector((s) => s.feedback.comments);
+  const comments = allComments.filter((c) => c.feedbackId === suggestionId);
   const feedback = useMemo(() => {
-    suggestionId.find((s) => s.id === suggestionId);
+    return suggestions.find((s) => s.id === suggestionId);
   }, [suggestions, suggestionId]);
 
-  if (!feedback) {
-    navigate("/");
-    return null;
-  }
+  useEffect(() => {
+    if (!feedback) {
+      navigate("/");
+    }
+  }, [feedback, navigate]);
 
-  const isEditRoute = location.pathname.endsWith("/dit");
+  const isEditRoute = location.pathname.endsWith("/edit");
+
   const closeModal = () => navigate(-1);
 
-  const handleUpvote = () => dispatch(toggleUpvoted(feedback.id));
+  const handleUpvoted = () => dispatch(toggleUpvoted(feedback.id));
+  const handleAddComments = (suggestionId, comment) => {
+    dispatch(addComment({ suggestionId, comment }));
+  };
+
+  const handleUpdate = (payload) => {
+    dispatch(updateSuggestion(payload));
+    closeModal();
+  };
+
+  const handleDelete = (id) => {
+    dispatch(deleteSuggestion(id));
+    navigate("/");
+  };
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
-      <DetailView />;
+      <DetailView
+        feedback={feedback}
+        comments={comments || []}
+        onBack={() => navigate("/")}
+        onUpvote={handleUpvoted}
+        onOpenEdit={() => navigate(`/feedback/${feedback.id}/edit`)}
+        onAddComment={handleAddComments}
+        onUpdate={handleUpdate}
+        onDelete={handleDelete}
+      />
     </div>
   );
 }

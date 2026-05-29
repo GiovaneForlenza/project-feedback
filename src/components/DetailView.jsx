@@ -1,21 +1,47 @@
-import React from "react";
 import { ArrowLeft, ChevronUp, MessageSquare } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-function DetailView() {
-  const navigate = useNavigate();
+import { useState } from "react";
+
+function DetailView({
+  feedback,
+  comments,
+  onBack,
+  onUpvote,
+  onOpenEdit,
+  onAddComment,
+  onUpdate,
+  onDelete,
+}) {
+  const [newComment, setNewComment] = useState(
+    "adwsaadwasdasdwa awd asd awdioajwdioj doiajwdoija sdoiajwd kanmsd iowj doiajd lakjsd owiaj laksdj awliojd alskdj alkwdj aoiwdjalksdj aowidj alksdj alwidj alkwjd lkasjd oliwaj lskdjwliaj sdlijwalksjd lwiaj kjdnakujdhoai wjdoaisdj lakjwdoawijd aisd",
+  );
+  const handlePost = () => {
+    if (!newComment.trim()) return;
+    const comment = {
+      id: Date.now(),
+      name: "current user",
+      username: "@currentuser",
+      avatar: "https://i.pravatar.cc/150?img=1",
+      text: newComment,
+      date: "Just now",
+    };    
+    onAddComment(feedback.id, comment);
+    // setNewComment("");
+  };
+
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       <div className="flex justify-between items-center">
         <button
           className="flex items-center gap-2 text-gray-600 hover:text-gray-800 font-semibold cursor-pointer"
-          onClick={() => {
-            navigate("/");
-          }}
+          onClick={onBack}
         >
           <ArrowLeft />
           Go Back
         </button>
-        <button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-semibold transition-all cursor-pointer">
+        <button
+          className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-semibold transition-all cursor-pointer"
+          onClick={onOpenEdit}
+        >
           Edit Feedback
         </button>
       </div>
@@ -23,54 +49,72 @@ function DetailView() {
       <div className="bg-white rounded-xl p-6 shadow-md">
         <div className="flex items-start gap-6">
           <button
-            className={`flex flex-col items-center gap-1 rounded-lg px-3 py-2 transition-all`}
+            className={`flex flex-col items-center gap-1 rounded-lg px-3 py-2 transition-all cursor-pointer ${feedback.upvoted ? "bg-purple-100 text-purple-700" : "bg-gray-50 text-gray-600 hover:bg-purple-50"}`}
+            onClick={(e) => {
+              e.stopPropagation();
+              onUpvote && onUpvote(feedback.id);
+            }}
           >
             <ChevronUp size={16} />
-            <span className="font-bold text-sm">Feedback votes</span>
+            <span className="font-bold text-sm">{feedback.upvotes}</span>
           </button>
           <div className="flex-1">
             <h2 className="font-bold text-gray-800 text-xl mb-2">
-              Feedback Title
+              {feedback.title}
             </h2>
-            <p className="text-gray-600 mb-3">Feedback description</p>
+            <p className="text-gray-600 mb-3">{feedback.description}</p>
             <span className="inline-block bg-purple-50 text-purple-600 px-4 py-2 rounded-lg text-sm font-semibold">
-              Feedback category
+              {feedback.category}
             </span>
           </div>
           <div className="flex items-center gap-2">
             <MessageSquare size={18} className="text-gray-400" />
-            <span className="font-bold text-gray-800">Feedback comments</span>
+            <span className="font-bold text-gray-800">{feedback.comments}</span>
           </div>
         </div>
       </div>
-      <div className="bg-white rounded-xl p-6">
-        <h3 className="font-bold text-gray-800 text-lg mb-6">
-          Comments Length
-        </h3>
-        <div className="space-y-6">
-          <div className="flex gap-4">
-            <img src="" alt="" className="w-10 h-10 rounded-full" />
-            <div className="flex-1">
-              <div className="flex justify-between items-start mb-2">
-                <div className="">
-                  <h4 className="font-bold text-gray-800 text-sm">
-                    Comment Name
-                  </h4>
-                  <p className="text-gray-500">Comment User Name</p>
-                </div>
-                <button className="text-purple-600 font-semibold text-sm hover:underline cursor-pointer">
-                  Reply
-                </button>
-              </div>
-              <p className="text-gray-600 text-sm leading leading-relaxed">
-                Comment Text
-              </p>
-            </div>
-          </div>
 
-          <div className="border-b border-gray-100 mt-6"></div>
+      {comments && comments.length > 0 && (
+        <div className="bg-white rounded-xl p-6">
+          <h3 className="font-bold text-gray-800 text-lg mb-6">
+            {comments.length} Comments
+          </h3>
+          <div className="space-y-6">
+            {comments.map((comment, idx) => {
+              return (
+                <>
+                  <div className="flex gap-4" key={idx}>
+                    <img
+                      src={comment.avatar}
+                      alt=""
+                      className="w-10 h-10 rounded-full"
+                    />
+                    <div className="flex-1">
+                      <div className="flex justify-between items-start mb-2">
+                        <div className="">
+                          <h4 className="font-bold text-gray-800 text-sm">
+                            {comment.username}
+                          </h4>
+                          <p className="text-gray-500">{comment.username}</p>
+                        </div>
+                        <button className="text-purple-600 font-semibold text-sm hover:underline cursor-pointer">
+                          Reply
+                        </button>
+                      </div>
+                      <p className="text-gray-600 text-sm leading leading-relaxed">
+                        {comment.text}
+                      </p>
+                    </div>
+                  </div>
+                  {idx < comments.length - 1 && (
+                    <div className="border-b border-gray-100 mt-6"></div>
+                  )}
+                </>
+              );
+            })}
+          </div>
         </div>
-      </div>
+      )}
       <div className="bg-white rounded-xl p-6">
         <h3 className="font-bold text-gray-800 text-lg mb-4">Add comment</h3>
         <textarea
@@ -79,10 +123,21 @@ function DetailView() {
           className="w-full border border-gray-200 rounded-lg p-4 text-gray-700 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500"
           rows={4}
           maxLength={250}
+          value={newComment}
+          onChange={(e) => {
+            setNewComment(e.target.value);
+          }}
+          placeholder="Type your comment here"
         ></textarea>
         <div className="flex justify-between items-center mt-4">
-          <span className="text-gray-500 text-sm">Characters left</span>
-          <button className="bg-purple-600 hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white px-6 py-2 rounded-lg font-semibold transition-all">
+          <span className="text-gray-500 text-sm">
+            {250 - newComment.length} characters left
+          </span>
+          <button
+            className="bg-purple-600 hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white px-6 py-2 rounded-lg font-semibold transition-all"
+            onClick={handlePost}
+            disabled={!newComment.trim()}
+          >
             Post Comment
           </button>
         </div>

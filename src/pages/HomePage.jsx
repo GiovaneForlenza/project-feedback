@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import FeedbackList from "../components/FeedbackList";
@@ -35,6 +35,7 @@ function HomePage() {
     [suggestions],
   );
 
+
   const openAdd = () => navigate("/add");
   const closeModel = () => navigate(-1); //Goes back to previous route
 
@@ -44,15 +45,17 @@ function HomePage() {
   };
 
   const handleUpvoted = (id) => {
-    console.log("a");
     dispatch(toggleUpvoted(id));
   };
   const handleView = (item) => {
     navigate(`/feedback/${item.id}`);
   };
 
+  const handleTeste = () => {};
+
   return (
     <div className="max-w-6xl mx-auto">
+      <button onClick={handleTeste}>TESTE</button>
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <Sidebar
           filterCategory={filterCategory}
