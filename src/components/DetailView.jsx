@@ -11,21 +11,20 @@ function DetailView({
   onUpdate,
   onDelete,
 }) {
-  const [newComment, setNewComment] = useState(
-    "adwsaadwasdasdwa awd asd awdioajwdioj doiajwdoija sdoiajwd kanmsd iowj doiajd lakjsd owiaj laksdj awliojd alskdj alkwdj aoiwdjalksdj aowidj alksdj alwidj alkwjd lkasjd oliwaj lskdjwliaj sdlijwalksjd lwiaj kjdnakujdhoai wjdoaisdj lakjwdoawijd aisd",
-  );
+  const [newComment, setNewComment] = useState("");
   const handlePost = () => {
     if (!newComment.trim()) return;
     const comment = {
       id: Date.now(),
+      feedbackId: feedback.id,
       name: "current user",
       username: "@currentuser",
       avatar: "https://i.pravatar.cc/150?img=1",
       text: newComment,
       date: "Just now",
-    };    
+    };
     onAddComment(feedback.id, comment);
-    // setNewComment("");
+    setNewComment("");
   };
 
   return (
@@ -93,13 +92,13 @@ function DetailView({
                       <div className="flex justify-between items-start mb-2">
                         <div className="">
                           <h4 className="font-bold text-gray-800 text-sm">
-                            {comment.username}
+                            {comment.name}
                           </h4>
                           <p className="text-gray-500">{comment.username}</p>
                         </div>
-                        <button className="text-purple-600 font-semibold text-sm hover:underline cursor-pointer">
+                        {/* <button className="text-purple-600 font-semibold text-sm hover:underline cursor-pointer">
                           Reply
-                        </button>
+                        </button> */}
                       </div>
                       <p className="text-gray-600 text-sm leading leading-relaxed">
                         {comment.text}

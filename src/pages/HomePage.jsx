@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import FeedbackList from "../components/FeedbackList";
@@ -7,6 +7,8 @@ import Sidebar from "../components/Sidebar";
 import { addSuggestion, toggleUpvoted } from "../store/feedbackSlice";
 
 function HomePage() {
+  const [feedbacks, setFeedbacks] = useState([]);
+
   // Uses Redux hooks to access the dispatch function and select state from the store. Also uses React Router hooks to navigate and access the current location.
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,20 +30,25 @@ function HomePage() {
   // Calculates the counts of suggestions in different roadmap categories (Planned, In-Progress, Live) using the useMemo hook to optimize performance. It filters the suggestions based on their status and counts how many fall into each category.
   const roadmapCounts = useMemo(
     () => ({
-      planned: suggestions.filter((s) => s.status === "Planned").length,
-      inProgress: suggestions.filter((s) => s.status === "In-Progress").length,
-      live: suggestions.filter((s) => s.status === "Live").length,
+      planned: suggestions
+        ? suggestions.filter((s) => s.status === "Planned").length
+        : 0,
+      inProgress: suggestions
+        ? suggestions.filter((s) => s.status === "In-Progress").length
+        : 0,
+      live: suggestions
+        ? suggestions.filter((s) => s.status === "Live").length
+        : 0,
     }),
     [suggestions],
   );
 
-
   const openAdd = () => navigate("/add");
-  const closeModel = () => navigate(-1); //Goes back to previous route
+  const closeModal = () => navigate(-1); //Goes back to previous route
 
   const handleAdd = (payload) => {
-    closeModel();
     dispatch(addSuggestion(payload));
+    closeModal();
   };
 
   const handleUpvoted = (id) => {
@@ -54,8 +61,7 @@ function HomePage() {
   const handleTeste = () => {};
 
   return (
-    <div className="max-w-6xl mx-auto">
-      <button onClick={handleTeste}>TESTE</button>
+    <div className={`max-w-6xl mx-auto `}>
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <Sidebar
           filterCategory={filterCategory}
@@ -109,7 +115,7 @@ function HomePage() {
       </div>
       <FeedbackModal
         isOpen={modelOpen}
-        onClose={closeModel}
+        onClose={closeModal}
         onAdd={handleAdd}
         editingFeedback={null}
         // onDelete={onDelete}

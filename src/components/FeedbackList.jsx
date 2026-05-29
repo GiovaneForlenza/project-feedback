@@ -10,11 +10,13 @@ function FeedbackList({
   setSuggestionCount,
 }) {
   // Filters the suggestions based on the selected category. If the category is "All", it includes all suggestions; otherwise, it filters to include only those that match the selected category.
-  const filtered = suggestions.filter(
+  const filtered = suggestions?.filter(
     (s) => filterCategory === "All" || s.category === filterCategory,
   );
 
   // Sorts the filtered suggestions based on the selected sorting criteria (Most Upvotes, Least Upvotes, Most Comments, Least Comments). It creates a new sorted array to avoid mutating the original filtered array.
+  
+  
   const sorted = [...filtered].sort((a, b) => {
     if (sortBy === "Most Upvotes") {
       return b.upvotes - a.upvotes;

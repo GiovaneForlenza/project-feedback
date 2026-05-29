@@ -1,11 +1,26 @@
-import { Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
+import { initialComments, initialFeedbacks } from "./data/initialData";
 import DetailPage from "./pages/DetailPage";
 import HomePage from "./pages/HomePage";
 import RoadmapPage from "./pages/RoadmapPage";
 
 function App() {
+  useEffect(() => {
+    if (!localStorage.getItem("feedbacks"))
+      localStorage.setItem("feedbacks", JSON.stringify(initialFeedbacks));
+    if (!localStorage.getItem("comments"))
+      localStorage.setItem("comments", JSON.stringify(initialComments));
+  }, []);
+
+  const location = useLocation();
+
+  const isEditRoute =
+    location.pathname.endsWith("/edit") || location.pathname === "/add";
   return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-8">
+    <div
+      className={`min-h-screen ${isEditRoute ? "h-screen overflow-hidden" : ""} bg-gray-50 p-4 md:p-8`}
+    >
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />

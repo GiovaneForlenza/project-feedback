@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { initialComments, initialFeedbacks } from "../data/initialDataOld";
+import { initialComments, initialFeedbacks } from "../data/initialData";
 
 const initialState = {
   suggestions: initialFeedbacks,
@@ -12,8 +12,8 @@ const feedbackSlice = createSlice({
   // Defines the reducers for handling various actions related to feedback suggestions, such as adding, updating, deleting suggestions, toggling upvotes, and adding comments. Each reducer updates the state accordingly based on the action payload.
   reducers: {
     addSuggestion: (state, action) => {
-      const payLoad = action.payLoad;
-      const newSuggestions = {
+      const payLoad = action.payload;
+      const newSuggestion = {
         id: Date.now(),
         title: payLoad.title,
         description: payLoad.description,
@@ -23,7 +23,7 @@ const feedbackSlice = createSlice({
         comments: 0,
         upvoted: false,
       };
-      // state.suggestions.push(newSuggestions);
+      state.suggestions.push(newSuggestion);
     },
 
     updateSuggestion: (state, action) => {
@@ -43,11 +43,9 @@ const feedbackSlice = createSlice({
       delete state.comments[id];
     },
     toggleUpvoted: (state, action) => {
-      
       // Toggles the upvote status of a suggestion based on the ID provided in the action payload. It updates the upvote count accordingly, ensuring it does not go below zero.
       const id = action.payload;
       const item = state.suggestions.find((s) => s.id === id);
-      
 
       if (item) {
         item.upvoted = !item.upvoted;
@@ -61,12 +59,12 @@ const feedbackSlice = createSlice({
       // Adds a comment to a specific suggestion based on the suggestion ID and comment data provided in the action payload. It also increments the comment count for the associated suggestion.
       const { suggestionId, comment } = action.payload;
       if (!state.comments[suggestionId]) state.comments[suggestionId] = [];
-      console.log(state.comments[0].text);
-      // state.comments[suggestionId].push(comment);
+      state.comments.push(comment);
+      console.log(state.comments[state.comments.length-1]);
 
       const item = state.suggestions.find((s) => s.id === suggestionId);
-      console.log(item);
-      
+      console.log(item.comments);
+
       if (item) item.comments = (item.comments || 0) + 1;
     },
 

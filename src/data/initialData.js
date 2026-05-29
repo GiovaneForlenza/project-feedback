@@ -1,10 +1,10 @@
-export const feedbacks = [
+export const initialFeedbacks = [
   {
     id: 1,
     title: "Add dark mode support for better night-time usability",
     description:
       "Implement a dark theme option that reduces eye strain during late-night coding sessions and improves overall user experience in low-light environments.",
-    upvotes: 142,
+    upvotes: 201,
     comments: 7,
     category: "UI",
     status: "In Progress",
@@ -151,7 +151,7 @@ export const feedbacks = [
   },
 ];
 
-export const comments = [
+export const initialComments = [
   // Feedback 1: Dark mode (7 comments)
   {
     id: 1,
@@ -759,23 +759,26 @@ export const comments = [
   },
 ];
 
-export function getFeedbacks() {
-  return feedbacks;
-}
 
-export function getFeedbackById(id) {
-  return feedbacks.find((f) => f.id === Number(id));
-}
 
-export function getComments() {
-  return comments;
-}
 
-export function getCommentsByFeedbackId(feedbackId) {
-  return comments.filter((c) => c.feedbackId === Number(feedbackId));
-}
+// export function getFeedbacks() {
+//   return feedbacks;
+// }
 
-export function getCommentsByUserId(userId) {
-  // If you need to filter by user, add userId field to comments
-  return comments.filter((c) => c.userId === Number(userId));
-}
+// export function getFeedbackById(id) {
+//   return feedbacks.find((f) => f.id === Number(id));
+// }
+
+// export function getComments() {
+//   return comments;
+// }
+
+// export function getCommentsByFeedbackId(feedbackId) {
+//   return comments.filter((c) => c.feedbackId === Number(feedbackId));
+// }
+
+// export function getCommentsByUserId(userId) {
+//   // If you need to filter by user, add userId field to comments
+//   return comments.filter((c) => c.userId === Number(userId));
+// }

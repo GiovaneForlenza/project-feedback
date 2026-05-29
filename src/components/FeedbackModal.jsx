@@ -2,7 +2,15 @@ import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function FeedbackModal({ isOpen, onClose, onAdd, editingFeedback }) {
+function FeedbackModal({
+  isOpen,
+  onClose,
+  onAdd,
+  onUpdate,
+  onDelete,
+  editingFeedback,
+}) {
+  // Initializes the formData state with default values for the feedback form. This state will hold the current values of the form fields (title, category, status, description) and will be updated as the user interacts with the form. The initial values are set to empty strings for title and description, and default values for category and status. This allows the form to be pre-filled with existing feedback data when editing, or start with blank fields when creating new feedback.
   const [formData, setFormData] = useState({
     title: "",
     category: "Feature",
@@ -11,6 +19,7 @@ function FeedbackModal({ isOpen, onClose, onAdd, editingFeedback }) {
   });
   const navigate = useNavigate();
 
+  // This useEffect hook runs whenever the editingFeedback prop or the isOpen state changes. If there is an editingFeedback object (indicating that the modal is in edit mode), it sets the formData state to the values of the existing feedback, allowing the form to be pre-filled with the current feedback details. If there is no editingFeedback (indicating that the modal is in create mode), it resets the formData to the default values, ensuring that the form starts with blank fields for new feedback creation. This logic ensures that the modal behaves correctly for both creating new feedback and editing existing feedback.
   useEffect(() => {
     if (editingFeedback) {
       setFormData({
@@ -33,19 +42,26 @@ function FeedbackModal({ isOpen, onClose, onAdd, editingFeedback }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    onAdd(formData);
+    if (editingFeedback) {
+      onUpdate && onUpdate({ ...editingFeedback, ...formData });
+    } else {
+      onAdd && onAdd(formData);
+    }
   };
 
   const handleDelete = () => {
     if (!editingFeedback) return;
-    // if (window.confirm("Are you sure you want to delete this feedback?")) {
-    // }
+    if (window.confirm("Are you sure you want to delete this feedback?")) {
+      onDelete && onDelete(editingFeedback.id);
+    }
   };
   return (
-    // backdrop-blur-xs
-    <div className="fixed inset-0  bg-gray-900/90   flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-xl max-w-lg w-full p-6 max-h-[900vh] overflow-y-auto">
+    <div className="fixed inset-0 flex items-center justify-center p-4 z-50 no-scrollbar">
+      <div
+        className="w-full h-full bg-gray-900/90 absolute top-0 left-0 "
+        onClick={onClose}
+      ></div>
+      <div className="bg-white rounded-xl max-w-lg w-full p-6 max-h-[900vh] overflow-y-auto z-10">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-gray-800">
             Create New Feedback
@@ -143,7 +159,9 @@ function FeedbackModal({ isOpen, onClose, onAdd, editingFeedback }) {
 
           <div className="flex gap-4">
             {editingFeedback && (
-              <button className="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-semibold transition-all cursor-pointer">
+              <button className="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-semibold transition-all cursor-pointer"
+                onClick={() => onDelete && onDelete(editingFeedback.id)}
+              >
                 Delete
               </button>
             )}
