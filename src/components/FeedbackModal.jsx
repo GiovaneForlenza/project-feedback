@@ -157,22 +157,23 @@ function FeedbackModal({
             ></textarea>
           </div>
 
-          <div className="flex gap-4">
+          <div className="flex gap-2 md:gap-4 border flex-col md:flex-row">
             {editingFeedback && (
-              <button className="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-semibold transition-all cursor-pointer"
+              <button
+                className="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 md:py-3 rounded-lg font-semibold transition-all cursor-pointer"
                 onClick={() => onDelete && onDelete(editingFeedback.id)}
               >
                 Delete
               </button>
             )}
             <button
-              className="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-3 rounded-lg font-semibold transition-all cursor-pointer"
+              className="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-2 md:py-3 rounded-lg font-semibold transition-all cursor-pointer"
               onClick={onClose}
             >
               Cancel
             </button>
 
-            <button className="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold transition-all cursor-pointer">
+            <button className="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-2 md:py-3 rounded-lg font-semibold transition-all cursor-pointer">
               {editingFeedback ? "Save Feedback" : "Add Feedback"}
             </button>
           </div>

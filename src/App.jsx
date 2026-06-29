@@ -3,7 +3,6 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import { initialComments, initialFeedbacks } from "./data/initialData";
 import DetailPage from "./pages/DetailPage";
 import HomePage from "./pages/HomePage";
-import RoadmapPage from "./pages/RoadmapPage";
 
 function App() {
   useEffect(() => {
@@ -26,7 +25,6 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/feedback/:id" element={<DetailPage />} />
           <Route path="/feedback/:id/edit" element={<DetailPage />} />
-          <Route path="/roadmap" element={<RoadmapPage />} />
           <Route path="/add" element={<HomePage />} />
           <Route path="*" element={<HomePage />} />
         </Routes>

@@ -29,7 +29,7 @@ function DetailView({
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center flex-col sm:flex-row">
         <button
           className="flex items-center gap-2 text-gray-600 hover:text-gray-800 font-semibold cursor-pointer"
           onClick={onBack}
@@ -38,7 +38,7 @@ function DetailView({
           Go Back
         </button>
         <button
-          className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-semibold transition-all cursor-pointer"
+          className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-semibold transition-all cursor-pointer w-full sm:w-fit mt-2 sm:mt-0"
           onClick={onOpenEdit}
         >
           Edit Feedback
@@ -46,7 +46,7 @@ function DetailView({
       </div>
 
       <div className="bg-white rounded-xl p-6 shadow-md">
-        <div className="flex items-start gap-6">
+        <div className="flex items-start flex-col sm:flex-row gap-6">
           <button
             className={`flex flex-col items-center gap-1 rounded-lg px-3 py-2 transition-all cursor-pointer ${feedback.upvoted ? "bg-purple-100 text-purple-700" : "bg-gray-50 text-gray-600 hover:bg-purple-50"}`}
             onClick={(e) => {
@@ -74,7 +74,7 @@ function DetailView({
       </div>
 
       {comments && comments.length > 0 && (
-        <div className="bg-white rounded-xl p-6">
+        <div className="bg-white rounded-xl p-3 sm:p-6">
           <h3 className="font-bold text-gray-800 text-lg mb-6">
             {comments.length} Comments
           </h3>
@@ -82,11 +82,14 @@ function DetailView({
             {comments.map((comment, idx) => {
               return (
                 <>
-                  <div className="flex gap-4" key={idx}>
+                  <div
+                    className="flex gap-2 sm:gap-4  flex-col sm:flex-row"
+                    key={idx}
+                  >
                     <img
                       src={comment.avatar}
                       alt=""
-                      className="w-10 h-10 rounded-full"
+                      className="sm:w-10 w-8 sm:h-10 h-8 rounded-full"
                     />
                     <div className="flex-1">
                       <div className="flex justify-between items-start mb-2">
@@ -114,7 +117,7 @@ function DetailView({
           </div>
         </div>
       )}
-      <div className="bg-white rounded-xl p-6">
+      <div className="bg-white rounded-xl p-3 sm:p-6">
         <h3 className="font-bold text-gray-800 text-lg mb-4">Add comment</h3>
         <textarea
           name=""
@@ -128,12 +131,12 @@ function DetailView({
           }}
           placeholder="Type your comment here"
         ></textarea>
-        <div className="flex justify-between items-center mt-4">
+        <div className="flex justify-between items-center mt-4 flex-col sm:flex-row">
           <span className="text-gray-500 text-sm">
             {250 - newComment.length} characters left
           </span>
           <button
-            className="bg-purple-600 hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white px-6 py-2 rounded-lg font-semibold transition-all"
+            className="bg-purple-600 hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white px-6 py-2 rounded-lg font-semibold transition-all w-full sm:w-fit mt-2 sm:mt-0"
             onClick={handlePost}
             disabled={!newComment.trim()}
           >
