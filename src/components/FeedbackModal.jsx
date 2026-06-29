@@ -64,7 +64,7 @@ function FeedbackModal({
       <div className="bg-white rounded-xl max-w-lg w-full p-6 max-h-[900vh] overflow-y-auto z-10">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-gray-800">
-            Create New Feedback
+            {editingFeedback ? "Edit Feedback" : "Create New Feedback"}
           </h2>
           <button
             className="text-gray-400 hover:text-gray-600"
@@ -157,7 +157,7 @@ function FeedbackModal({
             ></textarea>
           </div>
 
-          <div className="flex gap-2 md:gap-4 border flex-col md:flex-row">
+          <div className="flex gap-2 md:gap-4 flex-col md:flex-row">
             {editingFeedback && (
               <button
                 className="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 md:py-3 rounded-lg font-semibold transition-all cursor-pointer"
