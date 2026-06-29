@@ -44,7 +44,7 @@ function HomePage() {
   );
 
   const openAdd = () => navigate("/add");
-  const closeModal = () => navigate(-1); //Goes back to previous route
+  const closeModal = () => navigate("/"); //Goes back to previous route
 
   const handleAdd = (payload) => {
     dispatch(addSuggestion(payload));
