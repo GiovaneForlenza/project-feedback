@@ -17,8 +17,8 @@ function DetailView({
     const comment = {
       id: Date.now(),
       feedbackId: feedback.id,
-      name: "current user",
-      username: "@currentuser",
+      name: "Giovane Forlenza",
+      username: "@g_forlenza",
       avatar: "https://i.pravatar.cc/150?img=1",
       text: newComment,
       date: "Just now",
